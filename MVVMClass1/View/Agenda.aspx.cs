@@ -26,9 +26,15 @@ namespace MVVMClass1.View
                 lblUserName.Text = objUsuarioEVM.Nombre;
                 UserPic.ImageUrl = objUsuarioEVM.Imagen;
 
+                ScriptManager.RegisterStartupScript(this, GetType(), "HideSession", "document.getElementById('SesionControls').style.display = 'none'; hideDelete(); HideEdit();", true);
 
+                if (!IsPostBack)
+                {
 
-                ScriptManager.RegisterStartupScript(this, GetType(), "HideUser", "document.getElementById('SesionControls').style.display = 'none';", true);
+                    txtFecha.Text = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
+
+                }
+
 
             }
 
@@ -43,6 +49,49 @@ namespace MVVMClass1.View
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/View/Login.aspx");
+        }
+
+        protected void btnEditTask_Click(object sender, EventArgs e)
+        {
+
+
+
+        }
+
+        protected void btnConfirmDelete_Click(object sender, EventArgs e)
+        {
+
+
+
+
+        }
+
+        protected void lkbEdit_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            RepeaterItem item = (RepeaterItem)btn.NamingContainer;
+            Label lblIdRecordatorio = (Label)item.FindControl("lblidRecordatorioRP");
+            Label txtRecordatorio = (Label)item.FindControl("lblRecordatorioRP");
+
+            Label txtFecha = (Label)item.FindControl("lblFechaRP");
+
+            txtFechaEdit.Text = DateTime.Parse(txtFecha.Text).ToString("yyyy-MM-ddTHH:mm");
+
+            txtNotaEdit.Text = txtRecordatorio.Text;
+
+            int idRecordatorio = Convert.ToInt32(lblIdRecordatorio.Text);
+            lblEditId.Text = idRecordatorio.ToString();
+            ScriptManager.RegisterStartupScript(this, GetType(), "showEdit", "ShowEdit();", true);
+        }
+
+        protected void lkbDelete_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            RepeaterItem item = (RepeaterItem)btn.NamingContainer;
+            Label lblIdRecordatorio = (Label)item.FindControl("lblidRecordatorioRP");
+            int idRecordatorio = Convert.ToInt32(lblIdRecordatorio.Text);
+            lblDeleteId.Text = idRecordatorio.ToString();
+            ScriptManager.RegisterStartupScript(this, GetType(), "showDelete", "showDelete();", true);
         }
     }
 }
