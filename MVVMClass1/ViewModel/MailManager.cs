@@ -23,7 +23,7 @@ namespace MVVMClass1.ViewModel
                 {
                     var mailmessage = new MimeMessage();
 
-                    mailmessage.From.Add(new MailboxAddress("Recordatorio", "danimaentertaintment@outlook.com"));
+                    mailmessage.From.Add(new MailboxAddress("Recordatorio", "agendacuenta@outlook.es"));
                     mailmessage.To.Add(new MailboxAddress(nombre, correo));
                     mailmessage.Subject = asunto;
                     mailmessage.Body = new TextPart()
@@ -37,7 +37,7 @@ namespace MVVMClass1.ViewModel
                         smtpClient.Connect("smtp.office365.com", 587, SecureSocketOptions.StartTls);
 
                         // Utiliza las credenciales de tu cuenta de Microsoft 365
-                        smtpClient.Authenticate("danimaentertaintment@outlook.com", "c418Alive");
+                        smtpClient.Authenticate("agendacuenta@outlook.es", "c418Alive");
 
                         smtpClient.Send(mailmessage);
                         smtpClient.Disconnect(true);

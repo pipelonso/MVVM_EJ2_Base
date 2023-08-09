@@ -15,7 +15,7 @@ namespace MVVMClass1.Model
         public SqlConnection mtdConexion()
         {
 
-            con = new SqlConnection("Data Source=.;Initial Catalog=MVVMAgenda;Integrated Security=True");
+            con = new SqlConnection("Data Source=SOGAPRRBCFSD533\\SQLEXPRESS;Initial Catalog=MVVMAgenda;Integrated Security=True");
             con.Open();
             return con;
 

@@ -229,6 +229,7 @@
     <Compile Include="Model\RecordatorioM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ClRecordatorioEVM.cs" />
+    <Compile Include="ViewModel\ClRecordatorioVM.cs" />
     <Compile Include="ViewModel\ClUsuarioEVM.cs" />
     <Compile Include="ViewModel\ClUsuarioVM.cs" />
     <Compile Include="ViewModel\MailManager.cs" />

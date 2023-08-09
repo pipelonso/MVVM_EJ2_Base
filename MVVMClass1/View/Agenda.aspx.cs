@@ -33,6 +33,12 @@ namespace MVVMClass1.View
 
                     txtFecha.Text = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
 
+
+
+                    ClRecordatorioVM objRecordatorioVM = new ClRecordatorioVM();
+                    List<ClRecordatorioEVM> listaRecordatorio = objRecordatorioVM.mtdGetTaskByUserMail(Session["Usuario"].ToString());
+                    RpRecordatorio.DataSource = listaRecordatorio;
+                    RpRecordatorio.DataBind();
                 }
 
 
@@ -53,14 +59,44 @@ namespace MVVMClass1.View
 
         protected void btnEditTask_Click(object sender, EventArgs e)
         {
+            ClRecordatorioVM objRecordatorioVM = new ClRecordatorioVM();
+            ClRecordatorioEVM objRecordatorioEVM = new ClRecordatorioEVM();
+            objRecordatorioEVM.Recordatorio = txtNotaEdit.Text;
 
+            string textofecha = txtFechaEdit.Text;
 
+            if (textofecha == "")
+            {
+                textofecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
+            }
+            DateTime Fechaformat;
+            DateTime.TryParseExact(textofecha, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out Fechaformat);
 
+            string newfecha = Fechaformat.ToString("yyyy-MM-dd HH:mm:ss");
+
+            objRecordatorioEVM.Fecha = newfecha;
+
+            int res = objRecordatorioVM.mtdEditTaskWithId(int.Parse(lblEditId.Text), objRecordatorioEVM);
+
+            if (res == 1)
+            {
+                List<ClRecordatorioEVM> listaRecordatorio = objRecordatorioVM.mtdGetTaskByUserMail(Session["Usuario"].ToString());
+                RpRecordatorio.DataSource = listaRecordatorio;
+                RpRecordatorio.DataBind();
+            }
         }
 
         protected void btnConfirmDelete_Click(object sender, EventArgs e)
         {
 
+            ClRecordatorioVM objRecordatorio = new ClRecordatorioVM();
+            int res = objRecordatorio.mtdDeleteWithId(int.Parse(lblDeleteId.Text));
+            if (res == 1)
+            {
+                List<ClRecordatorioEVM> listaRecordatorio = objRecordatorio.mtdGetTaskByUserMail(Session["Usuario"].ToString());
+                RpRecordatorio.DataSource = listaRecordatorio;
+                RpRecordatorio.DataBind();
+            }
 
 
 
@@ -92,6 +128,35 @@ namespace MVVMClass1.View
             int idRecordatorio = Convert.ToInt32(lblIdRecordatorio.Text);
             lblDeleteId.Text = idRecordatorio.ToString();
             ScriptManager.RegisterStartupScript(this, GetType(), "showDelete", "showDelete();", true);
+        }
+
+        protected void btnAddTask_Click(object sender, EventArgs e)
+        {
+            ClRecordatorioVM objRecordatorioVM = new ClRecordatorioVM();
+            ClRecordatorioEVM objRecordatorioEVM = new ClRecordatorioEVM();
+            objRecordatorioEVM.Recordatorio = txtNota.Text;
+
+            string textofecha = txtFecha.Text;
+
+            if (textofecha == "")
+            {
+                textofecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
+            }
+
+            DateTime FechaFormat;
+            DateTime.TryParseExact(textofecha, "yyy-MM-ddTHH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out FechaFormat);
+            string newfecha = FechaFormat.ToString("yyy-MM-dd HH:mm:ss");
+
+            objRecordatorioEVM.Fecha = newfecha;
+
+            int res = objRecordatorioVM.mtdAddTaskByMail(Session["Usuario"].ToString(), objRecordatorioEVM);
+
+            if (res== 1)
+            {
+                List<ClRecordatorioEVM> listaRecordatorio = objRecordatorioVM.mtdGetTaskByUserMail(Session["Usuario"].ToString());
+                RpRecordatorio.DataSource = listaRecordatorio;
+                RpRecordatorio.DataBind();
+            }
         }
     }
 }

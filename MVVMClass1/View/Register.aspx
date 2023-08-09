@@ -12,7 +12,11 @@
 <body>
     <form id="form1" runat="server">
         <div class="navbar p-2"> 
-            <div class="nav-item col-sm-12 col-md-2 col-lg-3 col-12 "></div>
+            <div class="nav-item col-sm-12 col-md-2 col-lg-3 col-12 ">
+                <br />
+                <br />
+                <br />
+            </div>
             <div class="nav-item p-2 col-sm-12 col-md-8 col-lg-6 col-12 regbox" id="regbox" style="position: relative;">
                 <h1 class="text-center p-2 bg-dark text-white">Registro</h1>
                 <asp:Label ID="lblCorreo" runat="server" Text="Correo" CssClass="w-100"></asp:Label>
